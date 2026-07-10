@@ -1,7 +1,11 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { ChevronLeft, Eye, Receipt, Check } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
-import { hotMemes } from "@/lib/memes"
+import { getMemeById, type Meme } from "@/lib/memes"
+import { getViewingHistory } from "@/lib/viewing-history"
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -13,8 +17,17 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   )
 }
 
-// Recently viewed memes (mock viewing history)
-const viewingHistory = hotMemes.slice(0, 5)
+function formatViewedAt(timestamp: number): string {
+  const diffMs = Date.now() - timestamp
+  const minutes = Math.floor(diffMs / 60000)
+  if (minutes < 1) return "Just now"
+  if (minutes < 60) return `${minutes}m ago`
+  const hours = Math.floor(minutes / 60)
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.floor(hours / 24)
+  if (days < 7) return `${days}d ago`
+  return new Date(timestamp).toLocaleDateString()
+}
 
 // Mock transaction history
 const transactions = [
@@ -48,7 +61,21 @@ const plans = [
   },
 ]
 
+type HistoryItem = { meme: Meme; viewedAt: number }
+
 export function AccountView() {
+  const [history, setHistory] = useState<HistoryItem[] | null>(null)
+
+  useEffect(() => {
+    const items = getViewingHistory()
+      .map((record) => {
+        const meme = getMemeById(record.id)
+        return meme ? { meme, viewedAt: record.viewedAt } : null
+      })
+      .filter((item): item is HistoryItem => item !== null)
+    setHistory(items)
+  }, [])
+
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-12">
       <AppHeader />
@@ -76,27 +103,36 @@ export function AccountView() {
             <Eye className="h-5 w-5" aria-hidden="true" />
             Viewing History
           </h3>
-          <ul className="mt-3 flex flex-col gap-2">
-            {viewingHistory.map((meme) => (
-              <li key={meme.id}>
-                <Link
-                  href={`/meme/${meme.id}`}
-                  className="flex items-center gap-3 rounded-xl bg-black/15 p-2 transition-colors hover:bg-black/25 active:scale-[0.99]"
-                >
-                  <img
-                    src={meme.image || "/placeholder.svg"}
-                    alt=""
-                    className="h-10 w-10 flex-shrink-0 rounded-lg object-cover"
-                    crossOrigin="anonymous"
-                  />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-semibold">{meme.term}</span>
-                    <span className="block truncate text-xs text-card-foreground/70">{meme.meaning}</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {history === null ? (
+            <p className="mt-3 text-sm text-card-foreground/70">Loading your history…</p>
+          ) : history.length === 0 ? (
+            <p className="mt-3 text-sm text-card-foreground/70">
+              No memes viewed yet. Open a meme to start building your history.
+            </p>
+          ) : (
+            <ul className="mt-3 flex flex-col gap-2">
+              {history.map(({ meme, viewedAt }) => (
+                <li key={meme.id}>
+                  <Link
+                    href={`/meme/${meme.id}`}
+                    className="flex items-center gap-3 rounded-xl bg-black/15 p-2 transition-colors hover:bg-black/25 active:scale-[0.99]"
+                  >
+                    <img
+                      src={meme.image || "/placeholder.svg"}
+                      alt=""
+                      className="h-10 w-10 flex-shrink-0 rounded-lg object-cover"
+                      crossOrigin="anonymous"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-semibold">{meme.term}</span>
+                      <span className="block truncate text-xs text-card-foreground/70">{meme.meaning}</span>
+                    </span>
+                    <span className="flex-shrink-0 text-xs text-card-foreground/60">{formatViewedAt(viewedAt)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 

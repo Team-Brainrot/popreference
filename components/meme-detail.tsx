@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ChevronLeft, ExternalLink } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { MemeCard } from "@/components/meme-card"
+import { RecordView } from "@/components/record-view"
 import type { Meme } from "@/lib/memes"
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -19,6 +20,7 @@ export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-12">
+      <RecordView id={meme.id} />
       <AppHeader />
 
       {/* Back link */}
