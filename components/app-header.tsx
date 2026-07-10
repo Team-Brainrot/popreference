@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Home, User } from "lucide-react"
+import { Home, LogIn, User } from "lucide-react"
 
 export function AppHeader() {
   return (
@@ -15,6 +15,13 @@ export function AppHeader() {
             className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-surface-foreground ring-1 ring-border transition-colors hover:bg-accent hover:text-accent-foreground active:scale-95"
           >
             <Home className="h-5 w-5" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/login"
+            aria-label="Log in"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-surface-foreground ring-1 ring-border transition-colors hover:bg-accent hover:text-accent-foreground active:scale-95"
+          >
+            <LogIn className="h-5 w-5" aria-hidden="true" />
           </Link>
           <Link
             href="/account"
