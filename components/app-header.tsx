@@ -16,13 +16,13 @@ export function AppHeader() {
           >
             <Home className="h-5 w-5" aria-hidden="true" />
           </Link>
-          <button
-            type="button"
-            aria-label="Account and login"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-surface-foreground ring-1 ring-border transition-colors hover:bg-accent hover:text-accent-foreground active:scale-95"
+          <Link
+            href="/account"
+            aria-label="Your account"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground ring-1 ring-border transition-colors hover:opacity-90 active:scale-95"
           >
             <User className="h-5 w-5" aria-hidden="true" />
-          </button>
+          </Link>
         </div>
       </div>
     </header>
