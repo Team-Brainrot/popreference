@@ -35,11 +35,6 @@ export function MemeCard({ meme }: { meme: Meme }) {
         ) : null}
       </button>
 
-      {/* Page-count style badge, top-left (Pixiv convention) */}
-      <span className="pointer-events-none absolute left-1.5 top-1.5 rounded-md bg-black/55 px-1.5 py-0.5 text-[10px] font-semibold text-white">
-        {meme.tags.length}P
-      </span>
-
       {/* Title overlaid bottom-left */}
       <h4
         className="pointer-events-none absolute bottom-2 left-2.5 right-11 truncate text-sm font-bold leading-tight text-white drop-shadow"
