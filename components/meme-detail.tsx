@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ChevronLeft, ExternalLink, Bookmark } from "lucide-react"
+import { ChevronLeft, ExternalLink } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { MemeCard } from "@/components/meme-card"
 import type { Meme } from "@/lib/memes"
@@ -42,22 +42,9 @@ export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
         <div className="flex flex-col rounded-2xl bg-card p-4 text-card-foreground shadow-[var(--shadow-card)]">
           <h3 className="text-sm font-bold">Concise Description</h3>
           <p className="mt-3 text-pretty text-sm leading-relaxed text-card-foreground/90">{meme.meaning}</p>
-          <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
-            {meme.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-black/15 px-2 py-0.5 text-xs font-medium text-card-foreground"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
         </div>
 
         <figure className="flex flex-col overflow-hidden rounded-2xl bg-surface shadow-[var(--shadow-card)] ring-1 ring-border">
-          <figcaption className="px-3 pt-2 text-center text-xs font-semibold text-surface-foreground">
-            Meme Image
-          </figcaption>
           <div className="flex flex-1 items-center justify-center p-2">
             <img
               src={meme.image || "/placeholder.svg"}
@@ -86,10 +73,6 @@ export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
           <div className="absolute bottom-0 left-0 p-5">
             <p className="text-2xl font-extrabold leading-tight text-white drop-shadow">{meme.term}</p>
             <p className="text-sm font-medium text-white/80">Popular variant</p>
-          </div>
-          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/40 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-            <Bookmark className="h-3.5 w-3.5" aria-hidden="true" />
-            {meme.bookmarks.toLocaleString()}
           </div>
         </div>
 
