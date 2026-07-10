@@ -3,6 +3,7 @@ import { ChevronLeft, ExternalLink } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { MemeCard } from "@/components/meme-card"
 import { RecordView } from "@/components/record-view"
+import { LikeButton } from "@/components/like-button"
 import type { Meme } from "@/lib/memes"
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -87,6 +88,8 @@ export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
           Learn more about {meme.term} at Know Your Meme
           <ExternalLink className="h-4 w-4" aria-hidden="true" />
         </a>
+
+        <LikeButton id={meme.id} />
       </section>
 
       {/* Similar memes */}

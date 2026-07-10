@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { ChevronLeft, ChevronRight, Eye, Receipt, Check } from "lucide-react"
+import { ChevronLeft, ChevronRight, Eye, Heart, Receipt, Check } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { getMemeById, type Meme } from "@/lib/memes"
 import { getViewingHistory } from "@/lib/viewing-history"
+import { getLikedMemes } from "@/lib/liked-memes"
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -62,9 +63,11 @@ const plans = [
 ]
 
 type HistoryItem = { meme: Meme; viewedAt: number }
+type LikeItem = { meme: Meme; likedAt: number }
 
 export function AccountView() {
   const [history, setHistory] = useState<HistoryItem[] | null>(null)
+  const [likes, setLikes] = useState<LikeItem[] | null>(null)
 
   useEffect(() => {
     const items = getViewingHistory()
@@ -74,6 +77,14 @@ export function AccountView() {
       })
       .filter((item): item is HistoryItem => item !== null)
     setHistory(items)
+
+    const likedItems = getLikedMemes()
+      .map((record) => {
+        const meme = getMemeById(record.id)
+        return meme ? { meme, likedAt: record.likedAt } : null
+      })
+      .filter((item): item is LikeItem => item !== null)
+    setLikes(likedItems)
   }, [])
 
   return (
@@ -137,6 +148,55 @@ export function AccountView() {
                       <span className="block truncate text-xs text-card-foreground/70">{meme.meaning}</span>
                     </span>
                     <span className="flex-shrink-0 text-xs text-card-foreground/60">{formatViewedAt(viewedAt)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </section>
+
+      {/* Likes */}
+      <section className="px-5 pt-6">
+        <div className="rounded-2xl bg-card p-4 text-card-foreground shadow-[var(--shadow-card)]">
+          <Link
+            href="/account/likes"
+            className="-m-2 flex items-center justify-between gap-2 rounded-xl p-2 transition-colors hover:bg-black/10 active:scale-[0.99]"
+          >
+            <h3 className="flex items-center gap-2 text-base font-bold">
+              <Heart className="h-5 w-5" aria-hidden="true" />
+              Likes
+            </h3>
+            <span className="flex items-center gap-0.5 text-xs font-semibold text-card-foreground/70">
+              View all
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </span>
+          </Link>
+          {likes === null ? (
+            <p className="mt-3 text-sm text-card-foreground/70">Loading your likes…</p>
+          ) : likes.length === 0 ? (
+            <p className="mt-3 text-sm text-card-foreground/70">
+              No liked memes yet. Tap “Like this meme” on any meme to save it here.
+            </p>
+          ) : (
+            <ul className="mt-3 flex flex-col gap-2">
+              {likes.slice(0, 5).map(({ meme, likedAt }) => (
+                <li key={meme.id}>
+                  <Link
+                    href={`/meme/${meme.id}`}
+                    className="flex items-center gap-3 rounded-xl bg-black/15 p-2 transition-colors hover:bg-black/25 active:scale-[0.99]"
+                  >
+                    <img
+                      src={meme.image || "/placeholder.svg"}
+                      alt=""
+                      className="h-10 w-10 flex-shrink-0 rounded-lg object-cover"
+                      crossOrigin="anonymous"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-semibold">{meme.term}</span>
+                      <span className="block truncate text-xs text-card-foreground/70">{meme.meaning}</span>
+                    </span>
+                    <span className="flex-shrink-0 text-xs text-card-foreground/60">{formatViewedAt(likedAt)}</span>
                   </Link>
                 </li>
               ))}
