@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { ChevronLeft, Eye, Receipt, Check } from "lucide-react"
+import { ChevronLeft, ChevronRight, Eye, Receipt, Check } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { getMemeById, type Meme } from "@/lib/memes"
 import { getViewingHistory } from "@/lib/viewing-history"
@@ -99,10 +99,19 @@ export function AccountView() {
       {/* Viewing history */}
       <section className="px-5 pt-8">
         <div className="rounded-2xl bg-card p-4 text-card-foreground shadow-[var(--shadow-card)]">
-          <h3 className="flex items-center gap-2 text-base font-bold">
-            <Eye className="h-5 w-5" aria-hidden="true" />
-            Viewing History
-          </h3>
+          <Link
+            href="/account/history"
+            className="-m-2 flex items-center justify-between gap-2 rounded-xl p-2 transition-colors hover:bg-black/10 active:scale-[0.99]"
+          >
+            <h3 className="flex items-center gap-2 text-base font-bold">
+              <Eye className="h-5 w-5" aria-hidden="true" />
+              Viewing History
+            </h3>
+            <span className="flex items-center gap-0.5 text-xs font-semibold text-card-foreground/70">
+              View all
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </span>
+          </Link>
           {history === null ? (
             <p className="mt-3 text-sm text-card-foreground/70">Loading your history…</p>
           ) : history.length === 0 ? (
@@ -111,7 +120,7 @@ export function AccountView() {
             </p>
           ) : (
             <ul className="mt-3 flex flex-col gap-2">
-              {history.map(({ meme, viewedAt }) => (
+              {history.slice(0, 5).map(({ meme, viewedAt }) => (
                 <li key={meme.id}>
                   <Link
                     href={`/meme/${meme.id}`}

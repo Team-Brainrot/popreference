@@ -1,7 +1,7 @@
 "use client"
 
 const STORAGE_KEY = "popref:viewing-history"
-const MAX_ENTRIES = 20
+const MAX_ENTRIES = 50
 
 export type ViewRecord = {
   id: string
