@@ -1,20 +1,19 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Heart } from "lucide-react"
 import type { Meme } from "@/lib/memes"
 
 export function MemeCard({ meme }: { meme: Meme }) {
-  const [flipped, setFlipped] = useState(false)
   const [bookmarked, setBookmarked] = useState(false)
 
   return (
     <article className="group relative aspect-square w-full overflow-hidden rounded-2xl bg-card shadow-[var(--shadow-card)] ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-0.5">
-      <button
-        type="button"
-        onClick={() => setFlipped((f) => !f)}
-        aria-label={`${meme.term}. Tap to ${flipped ? "hide" : "see"} the meaning.`}
-        className="absolute inset-0 h-full w-full text-left transition-transform active:scale-[0.99]"
+      <Link
+        href={`/meme/${meme.id}`}
+        aria-label={`Open the definition page for ${meme.term}`}
+        className="absolute inset-0 block h-full w-full transition-transform active:scale-[0.99]"
       >
         <img
           src={meme.image || "/placeholder.svg"}
@@ -25,15 +24,7 @@ export function MemeCard({ meme }: { meme: Meme }) {
 
         {/* Bottom gradient so the title stays readable over any artwork */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
-
-        {flipped ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-primary/85 p-3 backdrop-blur-sm">
-            <p className="text-pretty text-center text-sm leading-relaxed text-primary-foreground">
-              {meme.meaning}
-            </p>
-          </div>
-        ) : null}
-      </button>
+      </Link>
 
       {/* Title overlaid bottom-left */}
       <h4

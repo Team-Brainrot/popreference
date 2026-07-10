@@ -8,6 +8,22 @@ export type Meme = {
   tags: string[]
 }
 
+export function getMemeById(id: string): Meme | undefined {
+  return hotMemes.find((m) => m.id === id)
+}
+
+export function getSimilarMemes(meme: Meme, limit = 6): Meme[] {
+  const scored = hotMemes
+    .filter((m) => m.id !== meme.id)
+    .map((m) => ({
+      meme: m,
+      score: m.tags.filter((t) => meme.tags.includes(t)).length,
+    }))
+    .sort((a, b) => b.score - a.score || b.meme.bookmarks - a.meme.bookmarks)
+
+  return scored.slice(0, limit).map((s) => s.meme)
+}
+
 export const hotMemes: Meme[] = [
   {
     id: "gyatt",
