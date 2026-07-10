@@ -26,10 +26,10 @@ export function FilterPills({ active, onChange }: FilterPillsProps) {
             type="button"
             onClick={() => onChange(filter.key)}
             aria-pressed={isActive}
-            className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+            className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-all active:scale-95 ${
               isActive
-                ? "bg-primary text-primary-foreground"
-                : "bg-transparent text-accent-foreground"
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "bg-surface/60 text-accent-foreground ring-1 ring-border hover:bg-surface"
             }`}
           >
             <Star

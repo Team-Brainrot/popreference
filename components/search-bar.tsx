@@ -10,7 +10,7 @@ type SearchBarProps = {
 export function SearchBar({ value, onChange }: SearchBarProps) {
   return (
     <div className="px-5">
-      <div className="flex items-center gap-3 rounded-full bg-surface px-6 py-4 shadow-sm">
+      <div className="flex items-center gap-3 rounded-full bg-surface px-6 py-4 shadow-sm ring-1 ring-border transition-shadow focus-within:ring-2 focus-within:ring-ring">
         <input
           type="search"
           value={value}
@@ -19,7 +19,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
           aria-label="Search slang and memes"
           className="min-w-0 flex-1 bg-transparent text-base text-surface-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none"
         />
-        <Search className="h-5 w-5 shrink-0 text-surface-foreground" aria-hidden="true" />
+        <Search className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
       </div>
     </div>
   )

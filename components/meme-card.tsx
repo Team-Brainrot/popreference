@@ -9,7 +9,7 @@ export function MemeCard({ meme }: { meme: Meme }) {
   const [bookmarked, setBookmarked] = useState(false)
 
   return (
-    <article className="relative aspect-square w-full overflow-hidden rounded-lg bg-card shadow-sm">
+    <article className="group relative aspect-square w-full overflow-hidden rounded-2xl bg-card shadow-[var(--shadow-card)] ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-0.5">
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
@@ -19,7 +19,7 @@ export function MemeCard({ meme }: { meme: Meme }) {
         <img
           src={meme.image || "/placeholder.svg"}
           alt={`Meme representing the slang term ${meme.term}`}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           crossOrigin="anonymous"
         />
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import { Flame } from "lucide-react"
 import { hotMemes } from "@/lib/memes"
 import { AppHeader } from "@/components/app-header"
 import { SearchBar } from "@/components/search-bar"
@@ -42,8 +43,11 @@ export function MemeFeed() {
 
       <FilterPills active={filter} onChange={setFilter} />
 
-      <div className="px-5 pt-4">
-        <h3 className="inline-block border-b-2 border-primary pb-1 text-3xl font-extrabold tracking-tight text-foreground">
+      <div className="flex items-center gap-2 px-5 pt-5">
+        {filter === "hot" ? (
+          <Flame className="h-6 w-6 text-flame" fill="currentColor" aria-hidden="true" />
+        ) : null}
+        <h3 className="inline-block border-b-2 border-flame pb-1 text-2xl font-extrabold tracking-tight text-foreground">
           {sectionLabels[filter]}
         </h3>
       </div>

@@ -22,10 +22,15 @@
   --color-muted: #b9c8e6;
   --color-muted-foreground: #55556a;
 
+  --color-flame: #f5813f;
+  --color-flame-foreground: #ffffff;
+
   --color-border: #c3d1ec;
   --color-ring: #4a4a5e;
 
   --radius: 1rem;
+
+  --shadow-card: 0 1px 2px rgba(27, 27, 34, 0.06), 0 8px 20px -12px rgba(27, 27, 34, 0.28);
 }
 
 html {
