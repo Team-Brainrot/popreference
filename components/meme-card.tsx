@@ -1,12 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Heart } from "lucide-react"
 import type { Meme } from "@/lib/memes"
+import { isLiked, toggleLike } from "@/lib/liked-memes"
 
 export function MemeCard({ meme }: { meme: Meme }) {
-  const [bookmarked, setBookmarked] = useState(false)
+  const [liked, setLiked] = useState(false)
+
+  useEffect(() => {
+    setLiked(isLiked(meme.id))
+  }, [meme.id])
 
   return (
     <article className="group relative aspect-square w-full overflow-hidden rounded-2xl bg-card shadow-[var(--shadow-card)] ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-0.5">
@@ -34,16 +39,16 @@ export function MemeCard({ meme }: { meme: Meme }) {
         {meme.term}
       </h4>
 
-      {/* Bookmark heart overlaid bottom-right */}
+      {/* Like heart overlaid bottom-right */}
       <button
         type="button"
-        onClick={() => setBookmarked((b) => !b)}
-        aria-pressed={bookmarked}
-        aria-label={bookmarked ? `Remove ${meme.term} from bookmarks` : `Bookmark ${meme.term}`}
+        onClick={() => setLiked(toggleLike(meme.id))}
+        aria-pressed={liked}
+        aria-label={liked ? `Remove ${meme.term} from likes` : `Like ${meme.term}`}
         className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full transition-transform active:scale-90"
       >
         <Heart
-          className={bookmarked ? "fill-rose-500 text-rose-500" : "fill-black/20 text-white"}
+          className={liked ? "fill-rose-500 text-rose-500" : "fill-black/20 text-white"}
           size={24}
           strokeWidth={2}
         />
