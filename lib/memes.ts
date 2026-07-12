@@ -29,7 +29,7 @@ export const hotMemes: Meme[] = [
     id: "gyatt",
     term: "Gyatt",
     meaning: "An exclamation of surprise or admiration, usually reacting to something impressive.",
-    image: "/memes/meme-1.png",
+    image: "/memes/meme-gyatt.png",
     creator: "memelord_99",
     bookmarks: 12483,
     tags: ["reaction", "hype", "genz"],
