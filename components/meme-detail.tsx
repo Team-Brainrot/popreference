@@ -17,10 +17,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 }
 
 export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
-  const handleKnowYourMemeClick = () => {
-    const searchUrl = `https://knowyourmeme.com/search?q=${encodeURIComponent(meme.term)}`
-    window.open(searchUrl, "_blank", "noopener,noreferrer")
-  }
+  const knowYourMemeUrl = `https://knowyourmeme.com/search?q=${encodeURIComponent(meme.term)}`
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-12">
@@ -82,13 +79,15 @@ export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
           </div>
         </div>
 
-        <button
-          onClick={handleKnowYourMemeClick}
-          className="mx-auto mt-4 flex w-fit items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition-colors hover:opacity-90 active:scale-95 cursor-pointer"
+        <a
+          href={knowYourMemeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mx-auto mt-4 flex w-fit items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-card)] transition-colors hover:opacity-90 active:scale-95"
         >
           Learn more about {meme.term} at Know Your Meme
           <ExternalLink className="h-4 w-4" aria-hidden="true" />
-        </button>
+        </a>
 
         <LikeButton id={meme.id} />
       </section>
