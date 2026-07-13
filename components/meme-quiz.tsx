@@ -2,7 +2,14 @@
 
 import { useState } from "react"
 import { Check, Flame, Sparkles, Trophy, X, Zap } from "lucide-react"
-import { quizQuestions, type QuizResult } from "@/lib/quiz"
+import {
+  pickNextQuestion,
+  computeAffinity,
+  QUIZ_LENGTH,
+  POOL_MAX_NICHE,
+  type QuizQuestion,
+  type QuizResult,
+} from "@/lib/quiz"
 import { nicheLevelFor } from "@/lib/niche"
 
 type MemeQuizProps = {
@@ -16,17 +23,22 @@ const POINTS_PER_CORRECT = 100
 const STREAK_BONUS = 25
 
 export function MemeQuiz({ onClose, onComplete }: MemeQuizProps) {
-  const [index, setIndex] = useState(0)
+  // Adaptive run state. The first question is drawn at the lowest difficulty.
+  const [question, setQuestion] = useState<QuizQuestion>(() => pickNextQuestion(new Set(), 1)!)
+  const [used, setUsed] = useState<Set<string>>(() => new Set([question.id]))
+  const [answered, setAnswered] = useState(0)
+  const [targetNiche, setTargetNiche] = useState(1)
   const [selected, setSelected] = useState<number | null>(null)
   const [locked, setLocked] = useState(false)
   const [correctCount, setCorrectCount] = useState(0)
+  const [maxCorrectNiche, setMaxCorrectNiche] = useState(0)
   const [streak, setStreak] = useState(0)
   const [points, setPoints] = useState(0)
+  const [finalAffinity, setFinalAffinity] = useState(0)
   const [phase, setPhase] = useState<Phase>("playing")
 
-  const question = quizQuestions[index]
-  const total = quizQuestions.length
-  const progress = phase === "result" ? 100 : (index / total) * 100
+  const total = QUIZ_LENGTH
+  const progress = phase === "result" ? 100 : (answered / total) * 100
 
   function handleAnswer(optionIndex: number) {
     if (locked) return
@@ -36,36 +48,45 @@ export function MemeQuiz({ onClose, onComplete }: MemeQuizProps) {
     const isCorrect = optionIndex === question.correctIndex
     let nextStreak = streak
     let nextCorrect = correctCount
+    let nextMaxNiche = maxCorrectNiche
+    // Correct -> ramp difficulty up. Wrong -> hold at the current niche.
+    let nextTarget = targetNiche
 
     if (isCorrect) {
       nextStreak = streak + 1
       nextCorrect = correctCount + 1
+      nextMaxNiche = Math.max(maxCorrectNiche, question.niche)
+      nextTarget = Math.min(POOL_MAX_NICHE, targetNiche + 1)
       setCorrectCount(nextCorrect)
       setStreak(nextStreak)
+      setMaxCorrectNiche(nextMaxNiche)
       setPoints((p) => p + POINTS_PER_CORRECT + (nextStreak - 1) * STREAK_BONUS)
     } else {
+      nextStreak = 0
       setStreak(0)
     }
+    setTargetNiche(nextTarget)
+
+    const answeredNow = answered + 1
+    setAnswered(answeredNow)
 
     window.setTimeout(() => {
-      if (index + 1 < total) {
-        setIndex((i) => i + 1)
+      const next = answeredNow < total ? pickNextQuestion(used, nextTarget) : null
+      if (next) {
+        setUsed((prev) => new Set(prev).add(next.id))
+        setQuestion(next)
         setSelected(null)
         setLocked(false)
       } else {
-        const result: QuizResult = { correct: nextCorrect, total, takenAt: Date.now() }
-        saveAndFinish(result)
+        const affinity = computeAffinity(nextMaxNiche, nextCorrect, answeredNow)
+        setFinalAffinity(affinity)
+        setPhase("result")
+        onComplete({ correct: nextCorrect, total: answeredNow, takenAt: Date.now(), affinity })
       }
     }, 900)
   }
 
-  function saveAndFinish(result: QuizResult) {
-    setPhase("result")
-    onComplete(result)
-  }
-
-  const affinity = correctCount / total
-  const level = nicheLevelFor(affinity)
+  const level = nicheLevelFor(finalAffinity)
 
   return (
     <div className="fixed inset-0 z-50 flex justify-center bg-foreground/40 backdrop-blur-sm">
@@ -100,7 +121,7 @@ export function MemeQuiz({ onClose, onComplete }: MemeQuizProps) {
           <PlayingView
             key={question.id}
             question={question}
-            index={index}
+            index={answered}
             total={total}
             selected={selected}
             locked={locked}
@@ -111,11 +132,11 @@ export function MemeQuiz({ onClose, onComplete }: MemeQuizProps) {
         ) : (
           <ResultView
             correct={correctCount}
-            total={total}
+            total={answered}
             points={points}
             levelLabel={level.label}
             levelBlurb={level.blurb}
-            affinity={affinity}
+            affinity={finalAffinity}
             onClose={onClose}
           />
         )}
@@ -125,7 +146,7 @@ export function MemeQuiz({ onClose, onComplete }: MemeQuizProps) {
 }
 
 type PlayingViewProps = {
-  question: (typeof quizQuestions)[number]
+  question: QuizQuestion
   index: number
   total: number
   selected: number | null
