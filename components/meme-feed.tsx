@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Flame, RotateCcw, Sparkles } from "lucide-react"
 import { hotMemes } from "@/lib/memes"
 import { rankForYou, nicheLevelFor, type NicheMap } from "@/lib/niche"
@@ -19,6 +20,8 @@ const sectionLabels: Record<FilterKey, string> = {
 }
 
 export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [query, setQuery] = useState("")
   const [filter, setFilter] = useState<FilterKey>("hot")
   const [quizOpen, setQuizOpen] = useState(false)
@@ -28,6 +31,16 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
   useEffect(() => {
     setQuizResult(getQuizResult())
   }, [])
+
+  // Open the quiz when arriving via the header button (/?quiz=1), even on a
+  // soft navigation from the same route. Clear the param so a refresh or back
+  // navigation doesn't reopen it.
+  useEffect(() => {
+    if (searchParams.get("quiz") === "1") {
+      setQuizOpen(true)
+      router.replace("/", { scroll: false })
+    }
+  }, [searchParams, router])
 
   const affinity = quizResult ? quizResult.correct / quizResult.total : null
 
