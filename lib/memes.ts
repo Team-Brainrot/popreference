@@ -1082,4 +1082,26 @@ export const hotMemes: Meme[] = [
     bookmarks: 14694,
     tags: ["audio", "edit", "brainrot"],
   },
+  {
+    id: "tung-tung-tung-sahur",
+    term: "Tung Tung Tung Sahur",
+    meaning:
+      "An AI-generated wooden creature holding a baseball bat, part of the 2025 Italian brainrot wave. It springs from an Indonesian Ramadan chant used to wake people for Sahur, the pre-dawn meal.",
+    image: "/memes/kym-tung-tung-sahur.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 39102,
+    tags: ["brainrot", "ai", "viral"],
+    fit: "contain",
+  },
+  {
+    id: "67",
+    term: "67 (Six Seven)",
+    meaning:
+      "A nonsensical catchphrase from Skrilla's song \"Doot Doot,\" popularized by LaMelo Ball (6'7\") edits and a see-saw hand gesture. It became Dictionary.com's 2025 Word of the Year as the ultimate brainrot phrase.",
+    image: "/memes/kym-67.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 97390,
+    tags: ["brainrot", "genz", "viral"],
+    fit: "contain",
+  },
 ]
