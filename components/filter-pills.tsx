@@ -1,6 +1,6 @@
 "use client"
 
-import { Star, GraduationCap, Brain, Gamepad2, PawPrint, type LucideIcon } from "lucide-react"
+import { Star, GraduationCap, Brain, Gamepad2, PawPrint, Users, type LucideIcon } from "lucide-react"
 
 export type FilterKey =
   | "hot"
@@ -10,6 +10,7 @@ export type FilterKey =
   | "brainrot"
   | "gaming"
   | "animals"
+  | "people"
 
 // Tag-based categories. A meme matches when it carries any of the listed tags.
 export const categoryTags: Partial<Record<FilterKey, string[]>> = {
@@ -17,6 +18,7 @@ export const categoryTags: Partial<Record<FilterKey, string[]>> = {
   brainrot: ["brainrot"],
   gaming: ["gaming"],
   animals: ["animals"],
+  people: ["people", "streamer", "music"],
 }
 
 const filters: { key: FilterKey; label: string; icon: LucideIcon }[] = [
@@ -27,6 +29,7 @@ const filters: { key: FilterKey; label: string; icon: LucideIcon }[] = [
   { key: "brainrot", label: "Brainrot", icon: Brain },
   { key: "gaming", label: "Gaming", icon: Gamepad2 },
   { key: "animals", label: "Animals", icon: PawPrint },
+  { key: "people", label: "People", icon: Users },
 ]
 
 type FilterPillsProps = {

@@ -22,6 +22,7 @@ const sectionLabels: Record<FilterKey, string> = {
   brainrot: "BRAINROT",
   gaming: "GAMING",
   animals: "ANIMALS",
+  people: "PEOPLE",
 }
 
 export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
