@@ -1104,4 +1104,15 @@ export const hotMemes: Meme[] = [
     tags: ["brainrot", "genz", "viral"],
     fit: "contain",
   },
+  {
+    id: "red-listening-to-music",
+    term: "Red Listening to Music",
+    meaning:
+      "Also known as Angry Bird Ear or Angry Bird Listening, this shows Red from Angry Birds with an exaggerated ear signifying attentive listening. It originated from a fan-made lost-media app called Talking Red in March 2024, and by late 2025 became a popular TikTok reaction used when listening to music or a song.",
+    image: "/memes/kym-red-music.png",
+    creator: "knowyourmeme",
+    bookmarks: 41280,
+    tags: ["brainrot", "reaction", "music", "viral"],
+    fit: "contain",
+  },
 ]
