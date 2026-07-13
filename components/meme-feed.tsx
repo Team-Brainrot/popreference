@@ -6,6 +6,7 @@ import { Flame, RotateCcw, Sparkles } from "lucide-react"
 import { hotMemes } from "@/lib/memes"
 import { rankForYou, nicheLevelFor, type NicheMap } from "@/lib/niche"
 import { getQuizResult, saveQuizResult, type QuizResult } from "@/lib/quiz"
+import { getShowNsfw, NSFW_CHANGE_EVENT } from "@/lib/preferences"
 import { AppHeader } from "@/components/app-header"
 import { SearchBar } from "@/components/search-bar"
 import { FilterPills, type FilterKey } from "@/components/filter-pills"
@@ -26,10 +27,24 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
   const [filter, setFilter] = useState<FilterKey>("hot")
   const [quizOpen, setQuizOpen] = useState(false)
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null)
+  const [showNsfw, setShowNsfw] = useState(false)
 
   // Load any saved quiz result on mount (localStorage is client-only).
   useEffect(() => {
     setQuizResult(getQuizResult())
+  }, [])
+
+  // Read the NSFW preference on mount and keep it in sync if the user toggles
+  // it (in this tab via our custom event, or in another tab via `storage`).
+  useEffect(() => {
+    setShowNsfw(getShowNsfw())
+    const sync = () => setShowNsfw(getShowNsfw())
+    window.addEventListener(NSFW_CHANGE_EVENT, sync)
+    window.addEventListener("storage", sync)
+    return () => {
+      window.removeEventListener(NSFW_CHANGE_EVENT, sync)
+      window.removeEventListener("storage", sync)
+    }
   }, [])
 
   // Open the quiz when arriving via the header button (/?quiz=1), even on a
@@ -48,13 +63,19 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
     ? quizResult.affinity ?? quizResult.correct / quizResult.total
     : null
 
+  // Hide NSFW memes entirely unless the user has opted in on their account.
+  const visibleMemes = useMemo(
+    () => (showNsfw ? hotMemes : hotMemes.filter((m) => !m.nsfw)),
+    [showNsfw],
+  )
+
   const searchResults = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return hotMemes
-    return hotMemes.filter(
+    if (!q) return visibleMemes
+    return visibleMemes.filter(
       (m) => m.term.toLowerCase().includes(q) || m.meaning.toLowerCase().includes(q),
     )
-  }, [query])
+  }, [query, visibleMemes])
 
   const results = useMemo(() => {
     if (filter === "foryou" && affinity !== null) {
