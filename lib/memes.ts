@@ -8,6 +8,8 @@ export type Meme = {
   tags: string[]
   /** How the image should fill the square card. Defaults to "cover". */
   fit?: "cover" | "contain"
+  /** Marks adult / mature content that is hidden from new users by default. */
+  nsfw?: boolean
 }
 
 export function getMemeById(id: string): Meme | undefined {
@@ -325,6 +327,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "goon-cave",
+    nsfw: true,
     term: "Goon Cave",
     meaning: "Ironic slang for a dim room where someone retreats to endlessly scroll or indulge online.",
     image: "/placeholder.svg",
@@ -397,6 +400,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "ambatukam",
+    nsfw: true,
     term: "Ambatukam",
     meaning: "A garbled 'I'm about to cum' soundboard phrase from streamer DreamyBull, used absurdly.",
     image: "/memes/kym-ambatukam.jpg",
@@ -442,6 +446,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "no-edging-in-class",
+    nsfw: true,
     term: "No Edging in Class",
     meaning: "An absurdist Gen Alpha classroom-rules catchphrase used ironically.",
     image: "/placeholder.svg",
@@ -649,6 +654,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "rose-toy",
+    nsfw: true,
     term: "Rose Toy",
     meaning: "A rose-shaped gadget that became a coy viral shopping-trend reference.",
     image: "/placeholder.svg",
@@ -658,6 +664,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "ankha-zone",
+    nsfw: true,
     term: "Ankha Zone",
     meaning: "A viral dance-audio meme referencing an Animal Crossing cat character.",
     image: "/memes/kym-ankha-zone.jpg",
@@ -667,6 +674,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "thug-shaker",
+    nsfw: true,
     term: "Thug Shaker",
     meaning: "A dance-clip audio that later became infamous through a document-leak scandal.",
     image: "/memes/kym-thug-shaker.jpg",
@@ -856,6 +864,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "no-nut-november",
+    nsfw: true,
     term: "No Nut November",
     meaning: "A tongue-in-cheek month-long abstinence challenge and meme calendar event.",
     image: "/memes/kym-no-nut-november.jpg",
@@ -865,6 +874,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "pokenut-november",
+    nsfw: true,
     term: "Pokénut November",
     meaning: "A Pokémon-themed parody spin on the No Nut November challenge.",
     image: "/placeholder.svg",
@@ -874,6 +884,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "foot-fetish",
+    nsfw: true,
     term: "Foot Fetish",
     meaning: "An ironic Gen Alpha punchline term used absurdly rather than literally.",
     image: "/placeholder.svg",
@@ -1009,6 +1020,7 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "gooning",
+    nsfw: true,
     term: "Gooning",
     meaning: "Ironic Gen Alpha slang for excessive obsessive scrolling or fixation.",
     image: "/memes/kym-gooning.jpg",
@@ -1069,5 +1081,38 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 14694,
     tags: ["audio", "edit", "brainrot"],
+  },
+  {
+    id: "tung-tung-tung-sahur",
+    term: "Tung Tung Tung Sahur",
+    meaning:
+      "An AI-generated bat-wielding wooden creature from the 2025 Italian brainrot wave, based on an Indonesian chant for waking people up for Sahur, the pre-dawn Ramadan meal.",
+    image: "/memes/kym-tung-tung-sahur.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 39102,
+    tags: ["brainrot", "ai", "viral"],
+    fit: "contain",
+  },
+  {
+    id: "67",
+    term: "67 (Six Seven)",
+    meaning:
+      "A nonsensical catchphrase from Skrilla's song \"Doot Doot,\" paired with a see-saw hand gesture. It became Dictionary.com's 2025 Word of the Year.",
+    image: "/memes/kym-67.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 97390,
+    tags: ["brainrot", "genz", "viral"],
+    fit: "contain",
+  },
+  {
+    id: "red-listening-to-music",
+    term: "Red Listening to Music",
+    meaning:
+      "Red from Angry Birds with an exaggerated ear, signifying attentive listening. It became a popular TikTok reaction for vibing to a song.",
+    image: "/memes/kym-red-music.png",
+    creator: "knowyourmeme",
+    bookmarks: 41280,
+    tags: ["brainrot", "reaction", "music", "viral"],
+    fit: "contain",
   },
 ]

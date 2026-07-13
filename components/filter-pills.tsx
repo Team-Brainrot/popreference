@@ -1,13 +1,35 @@
 "use client"
 
-import { Star } from "lucide-react"
+import { Star, GraduationCap, Brain, Gamepad2, PawPrint, Users, type LucideIcon } from "lucide-react"
 
-export type FilterKey = "hot" | "foryou" | "oldgold"
+export type FilterKey =
+  | "hot"
+  | "foryou"
+  | "oldgold"
+  | "classroom"
+  | "brainrot"
+  | "gaming"
+  | "animals"
+  | "people"
 
-const filters: { key: FilterKey; label: string }[] = [
-  { key: "hot", label: "Hot!" },
-  { key: "foryou", label: "For you!" },
-  { key: "oldgold", label: "Old&Gold" },
+// Tag-based categories. A meme matches when it carries any of the listed tags.
+export const categoryTags: Partial<Record<FilterKey, string[]>> = {
+  classroom: ["genz", "slang", "trend"],
+  brainrot: ["brainrot"],
+  gaming: ["gaming"],
+  animals: ["animals"],
+  people: ["people", "streamer", "music"],
+}
+
+const filters: { key: FilterKey; label: string; icon: LucideIcon }[] = [
+  { key: "hot", label: "Hot!", icon: Star },
+  { key: "foryou", label: "For you!", icon: Star },
+  { key: "oldgold", label: "Old&Gold", icon: Star },
+  { key: "classroom", label: "Classroom", icon: GraduationCap },
+  { key: "brainrot", label: "Brainrot", icon: Brain },
+  { key: "gaming", label: "Gaming", icon: Gamepad2 },
+  { key: "animals", label: "Animals", icon: PawPrint },
+  { key: "people", label: "People", icon: Users },
 ]
 
 type FilterPillsProps = {
@@ -20,6 +42,7 @@ export function FilterPills({ active, onChange }: FilterPillsProps) {
     <div className="flex flex-wrap items-center gap-2 px-5 pt-6">
       {filters.map((filter) => {
         const isActive = filter.key === active
+        const Icon = filter.icon
         return (
           <button
             key={filter.key}
@@ -32,9 +55,9 @@ export function FilterPills({ active, onChange }: FilterPillsProps) {
                 : "bg-surface/60 text-accent-foreground ring-1 ring-border hover:bg-surface"
             }`}
           >
-            <Star
+            <Icon
               className="h-4 w-4"
-              fill={isActive ? "currentColor" : "none"}
+              fill={isActive && filter.icon === Star ? "currentColor" : "none"}
               aria-hidden="true"
             />
             {filter.label}
