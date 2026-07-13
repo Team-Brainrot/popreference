@@ -1086,7 +1086,7 @@ export const hotMemes: Meme[] = [
     id: "tung-tung-tung-sahur",
     term: "Tung Tung Tung Sahur",
     meaning:
-      "An AI-generated wooden creature holding a baseball bat, part of the 2025 Italian brainrot wave. It springs from an Indonesian Ramadan chant used to wake people for Sahur, the pre-dawn meal.",
+      "An AI-generated bat-wielding wooden creature from the 2025 Italian brainrot wave, based on an Indonesian chant for waking people up for Sahur, the pre-dawn Ramadan meal.",
     image: "/memes/kym-tung-tung-sahur.jpg",
     creator: "knowyourmeme",
     bookmarks: 39102,
@@ -1097,7 +1097,7 @@ export const hotMemes: Meme[] = [
     id: "67",
     term: "67 (Six Seven)",
     meaning:
-      "A nonsensical catchphrase from Skrilla's song \"Doot Doot,\" popularized by LaMelo Ball (6'7\") edits and a see-saw hand gesture. It became Dictionary.com's 2025 Word of the Year as the ultimate brainrot phrase.",
+      "A nonsensical catchphrase from Skrilla's song \"Doot Doot,\" paired with a see-saw hand gesture. It became Dictionary.com's 2025 Word of the Year.",
     image: "/memes/kym-67.jpg",
     creator: "knowyourmeme",
     bookmarks: 97390,
@@ -1108,7 +1108,7 @@ export const hotMemes: Meme[] = [
     id: "red-listening-to-music",
     term: "Red Listening to Music",
     meaning:
-      "Also known as Angry Bird Ear or Angry Bird Listening, this shows Red from Angry Birds with an exaggerated ear signifying attentive listening. It originated from a fan-made lost-media app called Talking Red in March 2024, and by late 2025 became a popular TikTok reaction used when listening to music or a song.",
+      "Red from Angry Birds with an exaggerated ear, signifying attentive listening. It became a popular TikTok reaction for vibing to a song.",
     image: "/memes/kym-red-music.png",
     creator: "knowyourmeme",
     bookmarks: 41280,
