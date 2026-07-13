@@ -9,7 +9,7 @@ import { getQuizResult, saveQuizResult, type QuizResult } from "@/lib/quiz"
 import { getShowNsfw, NSFW_CHANGE_EVENT } from "@/lib/preferences"
 import { AppHeader } from "@/components/app-header"
 import { SearchBar } from "@/components/search-bar"
-import { FilterPills, type FilterKey } from "@/components/filter-pills"
+import { FilterPills, categoryTags, type FilterKey } from "@/components/filter-pills"
 import { MemeCard } from "@/components/meme-card"
 import { MemeQuiz } from "@/components/meme-quiz"
 import { AdRow } from "@/components/ad-row"
@@ -18,6 +18,10 @@ const sectionLabels: Record<FilterKey, string> = {
   hot: "HOT",
   foryou: "FOR YOU",
   oldgold: "OLD & GOLD",
+  classroom: "POPULAR IN THE CLASSROOM",
+  brainrot: "BRAINROT",
+  gaming: "GAMING",
+  animals: "ANIMALS",
 }
 
 export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
@@ -80,6 +84,10 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
   const results = useMemo(() => {
     if (filter === "foryou" && affinity !== null) {
       return rankForYou(searchResults, nicheScores, affinity)
+    }
+    const tags = categoryTags[filter]
+    if (tags) {
+      return searchResults.filter((m) => m.tags.some((t) => tags.includes(t)))
     }
     return searchResults
   }, [filter, affinity, nicheScores, searchResults])
@@ -152,7 +160,9 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
         <ForYouPrompt onStart={() => setQuizOpen(true)} />
       ) : results.length === 0 ? (
         <p className="px-5 pt-10 text-center text-muted-foreground">
-          {`No memes found for "${query}". Try another term.`}
+          {query.trim()
+            ? `No memes found for "${query}". Try another term.`
+            : "No memes in this category yet."}
         </p>
       ) : (
         <div className="flex flex-col gap-3 px-5 pt-4">
