@@ -23,7 +23,9 @@ export function MemeCard({ meme }: { meme: Meme }) {
         <img
           src={meme.image || "/placeholder.svg"}
           alt={`Meme representing the slang term ${meme.term}`}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className={`h-full w-full transition-transform duration-300 group-hover:scale-105 ${
+            meme.fit === "contain" ? "object-contain" : "object-cover"
+          }`}
           crossOrigin="anonymous"
         />
 

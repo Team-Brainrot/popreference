@@ -6,6 +6,8 @@ export type Meme = {
   creator: string
   bookmarks: number
   tags: string[]
+  /** How the image should fill the square card. Defaults to "cover". */
+  fit?: "cover" | "contain"
 }
 
 export function getMemeById(id: string): Meme | undefined {
@@ -60,6 +62,7 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 29540,
     tags: ["classic", "emoticon", "viral"],
+    fit: "contain",
   },
   {
     id: "forever-alone",
@@ -78,6 +81,7 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 12483,
     tags: ["reaction", "hype", "genz"],
+    fit: "contain",
   },
   {
     id: "rizz",
@@ -87,6 +91,7 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 20194,
     tags: ["charm", "dating", "viral"],
+    fit: "contain",
   },
   {
     id: "ohio",
@@ -123,6 +128,7 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 9640,
     tags: ["food", "friends", "meme"],
+    fit: "contain",
   },
   {
     id: "delulu",
@@ -132,6 +138,7 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 17812,
     tags: ["mood", "funny", "genz"],
+    fit: "contain",
   },
   {
     id: "mewing",
@@ -141,6 +148,7 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 6455,
     tags: ["looksmax", "trend", "gym"],
+    fit: "contain",
   },
   {
     id: "npc",
