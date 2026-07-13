@@ -42,7 +42,11 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
     }
   }, [searchParams, router])
 
-  const affinity = quizResult ? quizResult.correct / quizResult.total : null
+  // Prefer the adaptive affinity saved with the result; fall back to the raw
+  // score ratio for any older saved results.
+  const affinity = quizResult
+    ? quizResult.affinity ?? quizResult.correct / quizResult.total
+    : null
 
   const searchResults = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -164,8 +168,9 @@ function ForYouPrompt({ onStart }: { onStart: () => void }) {
         Unlock your For You feed
       </h3>
       <p className="text-pretty pt-2 text-sm leading-relaxed text-muted-foreground">
-        Take a quick 5-question meme quiz. The more you get right, the more niche
-        the memes we surface just for you.
+        Take a quick adaptive meme quiz. It starts easy and gets nicher with
+        every correct answer — the deeper you go, the more underground the memes
+        we surface just for you.
       </p>
       <button
         type="button"
