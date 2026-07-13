@@ -195,7 +195,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 38210,
     tags: ["reaction", "based", "viral"],
-    fit: "contain",
   },
   {
     id: "kai-cenat",
@@ -206,7 +205,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 26540,
     tags: ["streamer", "reaction", "genz"],
-    fit: "contain",
   },
   {
     id: "ishowspeed",
@@ -217,7 +215,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 29880,
     tags: ["streamer", "reaction", "viral"],
-    fit: "contain",
   },
   {
     id: "john-pork",
@@ -228,7 +225,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 15720,
     tags: ["absurd", "surreal", "brainrot"],
-    fit: "contain",
   },
   {
     id: "quandale-dingle",
@@ -239,7 +235,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 18930,
     tags: ["absurd", "brainrot", "viral"],
-    fit: "contain",
   },
   {
     id: "amogus",
@@ -250,7 +245,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 42110,
     tags: ["gaming", "absurd", "viral"],
-    fit: "contain",
   },
   {
     id: "huggy-wuggy",
@@ -270,7 +264,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 33110,
     tags: ["reaction", "classic", "viral"],
-    fit: "contain",
   },
   {
     id: "pizza-tower",
@@ -292,7 +285,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 27650,
     tags: ["horror", "creepypasta", "viral"],
-    fit: "contain",
   },
   {
     id: "goofy-ahh",
@@ -312,7 +304,6 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 21030,
     tags: ["ironic", "viral", "meme"],
-    fit: "contain",
   },
   {
     id: "ugandan-knuckles",
@@ -322,6 +313,5 @@ export const hotMemes: Meme[] = [
     creator: "knowyourmeme",
     bookmarks: 19470,
     tags: ["gaming", "classic", "viral"],
-    fit: "contain",
   },
 ]
