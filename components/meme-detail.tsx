@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ChevronLeft, ExternalLink } from "lucide-react"
+import { ChevronLeft, ExternalLink, PlayCircle } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { MemeCard } from "@/components/meme-card"
 import { RecordView } from "@/components/record-view"
@@ -78,6 +78,22 @@ export function MemeDetail({ meme, similar }: { meme: Meme; similar: Meme[] }) {
             <p className="text-sm font-medium text-white/80">Popular variant</p>
           </div>
         </div>
+
+        {meme.video && (
+          <a
+            href={meme.video}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 flex items-center gap-3 rounded-2xl bg-card p-4 text-card-foreground shadow-[var(--shadow-card)] ring-1 ring-border transition-colors hover:bg-muted active:scale-95"
+          >
+            <PlayCircle className="h-8 w-8 shrink-0 text-primary" aria-hidden="true" />
+            <span className="flex flex-col">
+              <span className="text-sm font-bold">Watch the video</span>
+              <span className="text-xs text-card-foreground/70">See {meme.term} in action on Know Your Meme</span>
+            </span>
+            <ExternalLink className="ml-auto h-4 w-4 shrink-0 text-card-foreground/60" aria-hidden="true" />
+          </a>
+        )}
 
         <a
           href={knowYourMemeUrl}
