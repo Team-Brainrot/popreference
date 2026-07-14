@@ -151,7 +151,7 @@ export function AccountView() {
       {/* Back link */}
       <div className="px-5 pt-4">
         <Link
-          href="/"
+          href="/feed"
           className="inline-flex items-center gap-1 rounded-lg bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground ring-1 ring-border transition-colors hover:bg-muted active:scale-95"
         >
           <ChevronLeft className="h-4 w-4" aria-hidden="true" />

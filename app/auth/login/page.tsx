@@ -25,7 +25,7 @@ export default function LoginPage() {
       const supabase = createClient()
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
-      router.push("/")
+      router.push("/feed")
       router.refresh()
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Could not sign in")

@@ -14,7 +14,7 @@ export default function AuthErrorPage() {
         Try again
       </Link>
       <Link
-        href="/"
+        href="/feed"
         className="mt-3 block text-center text-sm font-semibold text-surface-foreground/70 underline underline-offset-4"
       >
         Back to browsing
