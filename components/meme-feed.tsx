@@ -54,7 +54,7 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
   useEffect(() => {
     if (searchParams.get("quiz") === "1") {
       setQuizOpen(true)
-      router.replace("/", { scroll: false })
+      router.replace("/feed", { scroll: false })
     }
   }, [searchParams, router])
 
