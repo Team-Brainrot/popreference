@@ -48,12 +48,12 @@ export function rankForYou(memes: Meme[], niche: NicheMap, affinity: number): Me
 }
 
 const NICHE_LEVELS = [
-  { min: 0, label: "Average Civilian", blurb: "Mainstream classics, front and center." },
-  { min: 0.2, label: "Casual Scroller", blurb: "The hits everyone knows." },
-  { min: 0.4, label: "Meme Curious", blurb: "A mix of popular and deeper cuts." },
-  { min: 0.6, label: "Certified Poster", blurb: "Leaning into the deep cuts." },
-  { min: 0.8, label: "Meme Connoisseur", blurb: "Niche brainrot, mostly." },
-  { min: 1, label: "Chronically Online", blurb: "The nichest of the niche." },
+  { min: 0, label: "Average Internet User", blurb: "You've never really explored the world of memes, and that's ok. You are most suited to learn about mainstream memes first." },
+  { min: 0.2, label: "Casual Scroller", blurb: "You have knowledge of some popular memes, but not much beyond that. You are most suited to learn more about the mainstream memes." },
+  { min: 0.4, label: "Meme Curious", blurb: "You have solid knowledge of popular memes. You are most suited to learn more about a mix of mainstream and deeper cuts." },
+  { min: 0.6, label: "Certified Poster", blurb: "You know your mainstream memes and have dipped your toe into nicher ones. You are most suited to learn more about the deep cuts." },
+  { min: 0.8, label: "Meme Scholar", blurb: "You have a great deal of knowledge in meme culture. You are most suited to learn about very niche memes." },
+  { min: 1, label: "Chronically Online", blurb: "Do you have a job? You are most suited to learn about the nichest of the niche memes." },
 ]
 
 export function nicheLevelFor(affinity: number): { label: string; blurb: string } {
