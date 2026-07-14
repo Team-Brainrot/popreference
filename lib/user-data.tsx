@@ -69,7 +69,9 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null)
   const [purchases, setPurchases] = useState<Purchase[]>([])
   // Tracks the user id we've already loaded/migrated for, to avoid re-running.
-  const loadedForRef = useRef<string | null>(null)
+  // Uses a sentinel initial value (not null) so the first guest load (uid=null)
+  // is not mistaken for an already-loaded state.
+  const loadedForRef = useRef<string | null | undefined>(undefined)
 
   // Load the current user's data from Supabase, migrating any local data on
   // first sign-in.
@@ -115,7 +117,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
       ])
 
       setLikes(
-        (likesRes.data ?? []).map((r) => ({
+        ((likesRes.data ?? []) as Record<string, unknown>[]).map((r) => ({
           id: r.meme_id as string,
           likedAt: new Date(r.liked_at as string).getTime(),
         })),
@@ -131,7 +133,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
           : null,
       )
       setPurchases(
-        (purchasesRes.data ?? []).map((r) => ({
+        ((purchasesRes.data ?? []) as Record<string, unknown>[]).map((r) => ({
           id: r.id as string,
           productId: r.product_id as string,
           label: r.label as string,
@@ -155,7 +157,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let active = true
 
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(({ data }: { data: { user: User | null } }) => {
       if (!active) return
       setUser(data.user ?? null)
       setAuthReady(true)
@@ -163,7 +165,7 @@ export function UserDataProvider({ children }: { children: React.ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((_event: string, session: { user: User } | null) => {
       if (!active) return
       setUser(session?.user ?? null)
       setAuthReady(true)
