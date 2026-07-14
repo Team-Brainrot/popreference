@@ -1,24 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Heart } from "lucide-react"
-import { isLiked, toggleLike } from "@/lib/liked-memes"
+import { useUserData } from "@/lib/user-data"
 
 export function LikeButton({ id }: { id: string }) {
-  const [liked, setLiked] = useState(false)
-
-  useEffect(() => {
-    setLiked(isLiked(id))
-  }, [id])
-
-  function handleClick() {
-    setLiked(toggleLike(id))
-  }
+  const { isLiked, toggleLike } = useUserData()
+  const liked = isLiked(id)
 
   return (
     <button
       type="button"
-      onClick={handleClick}
+      onClick={() => void toggleLike(id)}
       aria-pressed={liked}
       aria-label={liked ? "Remove from your likes" : "Add to your likes"}
       className={`mx-auto mt-4 flex w-fit items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold shadow-[var(--shadow-card)] transition-colors active:scale-95 ${

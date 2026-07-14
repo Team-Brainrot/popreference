@@ -1,17 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Heart } from "lucide-react"
 import type { Meme } from "@/lib/memes"
-import { isLiked, toggleLike } from "@/lib/liked-memes"
+import { useUserData } from "@/lib/user-data"
 
 export function MemeCard({ meme }: { meme: Meme }) {
-  const [liked, setLiked] = useState(false)
-
-  useEffect(() => {
-    setLiked(isLiked(meme.id))
-  }, [meme.id])
+  const { isLiked, toggleLike } = useUserData()
+  const liked = isLiked(meme.id)
 
   return (
     <article className="group relative aspect-square w-full overflow-hidden rounded-2xl bg-card shadow-[var(--shadow-card)] ring-1 ring-black/5 transition-transform duration-200 hover:-translate-y-0.5">
@@ -44,7 +40,7 @@ export function MemeCard({ meme }: { meme: Meme }) {
       {/* Like heart overlaid bottom-right */}
       <button
         type="button"
-        onClick={() => setLiked(toggleLike(meme.id))}
+        onClick={() => void toggleLike(meme.id)}
         aria-pressed={liked}
         aria-label={liked ? `Remove ${meme.term} from likes` : `Like ${meme.term}`}
         className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full transition-transform active:scale-90"
