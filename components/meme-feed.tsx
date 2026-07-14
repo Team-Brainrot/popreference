@@ -5,8 +5,9 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { Flame, RotateCcw, Sparkles } from "lucide-react"
 import { hotMemes } from "@/lib/memes"
 import { rankForYou, nicheLevelFor, type NicheMap } from "@/lib/niche"
-import { getQuizResult, saveQuizResult, type QuizResult } from "@/lib/quiz"
+import { type QuizResult } from "@/lib/quiz"
 import { getShowNsfw, NSFW_CHANGE_EVENT } from "@/lib/preferences"
+import { useUserData } from "@/lib/user-data"
 import { AppHeader } from "@/components/app-header"
 import { SearchBar } from "@/components/search-bar"
 import { FilterPills, categoryTags, type FilterKey } from "@/components/filter-pills"
@@ -31,13 +32,8 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
   const [query, setQuery] = useState("")
   const [filter, setFilter] = useState<FilterKey>("hot")
   const [quizOpen, setQuizOpen] = useState(false)
-  const [quizResult, setQuizResult] = useState<QuizResult | null>(null)
+  const { quizResult, saveQuizResult } = useUserData()
   const [showNsfw, setShowNsfw] = useState(false)
-
-  // Load any saved quiz result on mount (localStorage is client-only).
-  useEffect(() => {
-    setQuizResult(getQuizResult())
-  }, [])
 
   // Read the NSFW preference on mount and keep it in sync if the user toggles
   // it (in this tab via our custom event, or in another tab via `storage`).
@@ -94,8 +90,7 @@ export function MemeFeed({ nicheScores }: { nicheScores: NicheMap }) {
   }, [filter, affinity, nicheScores, searchResults])
 
   function handleQuizComplete(result: QuizResult) {
-    saveQuizResult(result)
-    setQuizResult(result)
+    void saveQuizResult(result)
   }
 
   function handleQuizClose() {

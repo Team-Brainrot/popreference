@@ -1,13 +1,25 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { ChevronLeft, ChevronRight, Eye, Heart, Receipt, Check, ShieldAlert } from "lucide-react"
+import { useRouter } from "next/navigation"
+import {
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Heart,
+  Receipt,
+  Check,
+  ShieldAlert,
+  LogIn,
+  LogOut,
+  UserRound,
+} from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { getMemeById, type Meme } from "@/lib/memes"
 import { getViewingHistory } from "@/lib/viewing-history"
-import { getLikedMemes } from "@/lib/liked-memes"
 import { getShowNsfw, setShowNsfw } from "@/lib/preferences"
+import { useUserData } from "@/lib/user-data"
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -31,18 +43,12 @@ function formatViewedAt(timestamp: number): string {
   return new Date(timestamp).toLocaleDateString()
 }
 
-// Mock transaction history
-const transactions = [
-  { id: "t1", label: "Go AD FREE", date: "Jul 2, 2026", amount: "$1.99" },
-  { id: "t2", label: "Premium — Monthly", date: "Jun 1, 2026", amount: "$0.99" },
-  { id: "t3", label: "Custom Colors", date: "May 18, 2026", amount: "$0.50" },
-]
-
 const plans = [
   {
     id: "premium",
     name: "Premium",
     price: "$0.99",
+    priceCents: 99,
     cadence: "per month",
     perks: ["Unlimited saves", "Early access to trends", "Priority feed"],
   },
@@ -50,6 +56,7 @@ const plans = [
     id: "adfree",
     name: "Go AD Free",
     price: "$1.99",
+    priceCents: 199,
     cadence: "one time",
     perks: ["Then all ads are gone forever", "Cleaner feed", "Faster browsing"],
     featured: true,
@@ -58,24 +65,70 @@ const plans = [
     id: "colors",
     name: "Custom Colors",
     price: "$0.50",
+    priceCents: 50,
     cadence: "one time",
     perks: ["Customize your page!", "Personal themes", "Show off your style"],
   },
 ]
 
+function formatMoney(cents: number): string {
+  return `$${(cents / 100).toFixed(2)}`
+}
+
+function formatDate(timestamp: number): string {
+  return new Date(timestamp).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })
+}
+
 type HistoryItem = { meme: Meme; viewedAt: number }
 type LikeItem = { meme: Meme; likedAt: number }
 
 export function AccountView() {
+  const router = useRouter()
+  const {
+    user,
+    authReady,
+    dataReady,
+    likes: likeRecords,
+    purchases,
+    addPurchase,
+    signOut,
+  } = useUserData()
   const [history, setHistory] = useState<HistoryItem[] | null>(null)
-  const [likes, setLikes] = useState<LikeItem[] | null>(null)
   const [nsfwEnabled, setNsfwEnabled] = useState(false)
+  const [buyingId, setBuyingId] = useState<string | null>(null)
 
   function handleToggleNsfw() {
     const next = !nsfwEnabled
     setNsfwEnabled(next)
     setShowNsfw(next)
   }
+
+  async function handleChoosePlan(plan: (typeof plans)[number]) {
+    if (!user) {
+      router.push("/auth/login")
+      return
+    }
+    setBuyingId(plan.id)
+    try {
+      await addPurchase({ productId: plan.id, label: plan.name, amountCents: plan.priceCents })
+    } finally {
+      setBuyingId(null)
+    }
+  }
+
+  const likes = useMemo<LikeItem[] | null>(() => {
+    if (!dataReady) return null
+    return likeRecords
+      .map((record) => {
+        const meme = getMemeById(record.id)
+        return meme ? { meme, likedAt: record.likedAt } : null
+      })
+      .filter((item): item is LikeItem => item !== null)
+  }, [likeRecords, dataReady])
 
   useEffect(() => {
     setNsfwEnabled(getShowNsfw())
@@ -89,14 +142,6 @@ export function AccountView() {
       })
       .filter((item): item is HistoryItem => item !== null)
     setHistory(items)
-
-    const likedItems = getLikedMemes()
-      .map((record) => {
-        const meme = getMemeById(record.id)
-        return meme ? { meme, likedAt: record.likedAt } : null
-      })
-      .filter((item): item is LikeItem => item !== null)
-    setLikes(likedItems)
   }, [])
 
   return (
@@ -118,6 +163,64 @@ export function AccountView() {
       <div className="px-5 pt-5">
         <SectionTitle>My Account</SectionTitle>
       </div>
+
+      {/* Auth / profile card */}
+      <section className="px-5 pt-8">
+        <div className="rounded-2xl bg-surface p-4 text-surface-foreground shadow-[var(--shadow-card)] ring-1 ring-border">
+          {!authReady ? (
+            <p className="text-sm text-muted-foreground">Checking your session…</p>
+          ) : user ? (
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-primary-foreground">
+                {user.user_metadata?.avatar_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={(user.user_metadata.avatar_url as string) || "/placeholder.svg"}
+                    alt=""
+                    className="h-full w-full object-cover"
+                    crossOrigin="anonymous"
+                  />
+                ) : (
+                  <UserRound className="h-6 w-6" aria-hidden="true" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-bold">
+                  {(user.user_metadata?.full_name as string) ?? "Signed in"}
+                </p>
+                <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => void signOut()}
+                className="flex flex-shrink-0 items-center gap-1.5 rounded-lg bg-muted px-3 py-2 text-xs font-bold text-foreground ring-1 ring-border transition-colors hover:opacity-90 active:scale-95"
+              >
+                <LogOut className="h-4 w-4" aria-hidden="true" />
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-muted text-foreground">
+                <UserRound className="h-6 w-6" aria-hidden="true" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-bold">You&apos;re browsing as a guest</p>
+                <p className="text-xs text-muted-foreground">
+                  Sign in to sync your likes, purchases, and For You feed across devices.
+                </p>
+              </div>
+              <Link
+                href="/auth/login"
+                className="flex flex-shrink-0 items-center gap-1.5 rounded-lg bg-flame px-3 py-2 text-xs font-bold text-flame-foreground transition-opacity hover:opacity-90 active:scale-95"
+              >
+                <LogIn className="h-4 w-4" aria-hidden="true" />
+                Sign in
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* Viewing history */}
       <section className="px-5 pt-8">
@@ -263,20 +366,30 @@ export function AccountView() {
             <Receipt className="h-5 w-5" aria-hidden="true" />
             Transaction History
           </h3>
-          <ul className="mt-3 flex flex-col gap-2">
-            {transactions.map((tx) => (
-              <li
-                key={tx.id}
-                className="flex items-center justify-between gap-3 rounded-xl bg-black/15 px-3 py-2.5"
-              >
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-semibold">{tx.label}</span>
-                  <span className="block text-xs text-card-foreground/70">{tx.date}</span>
-                </span>
-                <span className="flex-shrink-0 text-sm font-bold">{tx.amount}</span>
-              </li>
-            ))}
-          </ul>
+          {!user ? (
+            <p className="mt-3 text-sm text-card-foreground/70">
+              Sign in to view your purchases and keep your receipts across devices.
+            </p>
+          ) : purchases.length === 0 ? (
+            <p className="mt-3 text-sm text-card-foreground/70">
+              No purchases yet. Choose a plan below to upgrade your experience.
+            </p>
+          ) : (
+            <ul className="mt-3 flex flex-col gap-2">
+              {purchases.map((tx) => (
+                <li
+                  key={tx.id}
+                  className="flex items-center justify-between gap-3 rounded-xl bg-black/15 px-3 py-2.5"
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-semibold">{tx.label}</span>
+                    <span className="block text-xs text-card-foreground/70">{formatDate(tx.createdAt)}</span>
+                  </span>
+                  <span className="flex-shrink-0 text-sm font-bold">{formatMoney(tx.amountCents)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
@@ -316,13 +429,15 @@ export function AccountView() {
             </ul>
             <button
               type="button"
-              className={`mt-4 rounded-lg px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 active:scale-95 ${
+              onClick={() => void handleChoosePlan(plan)}
+              disabled={buyingId === plan.id}
+              className={`mt-4 rounded-lg px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 active:scale-95 disabled:opacity-60 ${
                 plan.featured
                   ? "bg-flame text-flame-foreground"
                   : "bg-primary text-primary-foreground"
               }`}
             >
-              Choose plan
+              {buyingId === plan.id ? "Processing…" : user ? "Choose plan" : "Sign in to buy"}
             </button>
           </div>
         ))}

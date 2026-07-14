@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
 import Link from "next/link"
 import { ChevronLeft, Heart } from "lucide-react"
 import { AppHeader } from "@/components/app-header"
 import { getMemeById, type Meme } from "@/lib/memes"
-import { getLikedMemes } from "@/lib/liked-memes"
+import { useUserData } from "@/lib/user-data"
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -32,18 +32,18 @@ function formatLikedAt(timestamp: number): string {
 type LikeItem = { meme: Meme; likedAt: number }
 
 export function LikesView() {
-  const [likes, setLikes] = useState<LikeItem[] | null>(null)
+  const { likes: likeRecords, dataReady } = useUserData()
 
-  useEffect(() => {
-    const items = getLikedMemes()
+  const likes = useMemo<LikeItem[] | null>(() => {
+    if (!dataReady) return null
+    return likeRecords
       .map((record) => {
         const meme = getMemeById(record.id)
         return meme ? { meme, likedAt: record.likedAt } : null
       })
       .filter((item): item is LikeItem => item !== null)
       .slice(0, 50)
-    setLikes(items)
-  }, [])
+  }, [likeRecords, dataReady])
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-12">

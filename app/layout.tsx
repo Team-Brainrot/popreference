@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
+import { UserDataProvider } from "@/lib/user-data"
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -34,7 +35,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`bg-muted ${geistSans.variable} ${geistMono.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <UserDataProvider>{children}</UserDataProvider>
+      </body>
     </html>
   )
 }
