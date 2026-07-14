@@ -48,12 +48,12 @@ export function rankForYou(memes: Meme[], niche: NicheMap, affinity: number): Me
 }
 
 const NICHE_LEVELS = [
-  { min: 0, label: "Normie", blurb: "Mainstream classics, front and center." },
+  { min: 0, label: "Average Civilian", blurb: "Mainstream classics, front and center." },
   { min: 0.2, label: "Casual Scroller", blurb: "The hits everyone knows." },
   { min: 0.4, label: "Meme Curious", blurb: "A mix of popular and deeper cuts." },
   { min: 0.6, label: "Certified Poster", blurb: "Leaning into the deep cuts." },
   { min: 0.8, label: "Meme Connoisseur", blurb: "Niche brainrot, mostly." },
-  { min: 1, label: "Terminally Online", blurb: "The nichest of the niche." },
+  { min: 1, label: "Chronically Online", blurb: "The nichest of the niche." },
 ]
 
 export function nicheLevelFor(affinity: number): { label: string; blurb: string } {
