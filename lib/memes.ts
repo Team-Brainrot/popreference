@@ -50,7 +50,7 @@ export const hotMemes: Meme[] = [
   {
     id: "slender-man",
     term: "Slender Man",
-    meaning: "A faceless, tall paranormal figure born from a creepypasta forum contest.",
+    meaning: "A faceless, tall paranormal figure born from a creepypasta forum contest. Also used as a way to describe a tall or lanky slightly offputting person.",
     image: "/memes/kym-slenderman.jpg",
     creator: "knowyourmeme",
     bookmarks: 33760,
