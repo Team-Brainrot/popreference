@@ -4,7 +4,6 @@ import {
   Sparkles,
   BookOpenText,
   CalendarClock,
-  Brain,
   Search,
   MessageSquareText,
   Check,
@@ -46,12 +45,6 @@ function LandingNav() {
         </Link>
         <nav className="flex items-center gap-2">
           <Link
-            href="/feed?quiz=1"
-            className="hidden rounded-full px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent hover:text-accent-foreground sm:inline-flex"
-          >
-            Take the quiz
-          </Link>
-          <Link
             href="/feed"
             className="inline-flex items-center gap-1.5 rounded-full bg-flame px-4 py-2 text-sm font-bold text-flame-foreground transition-opacity hover:opacity-90 active:scale-95"
           >
@@ -91,13 +84,6 @@ function Hero() {
             >
               Start decoding
               <ArrowRight className="h-5 w-5" aria-hidden="true" />
-            </Link>
-            <Link
-              href="/feed?quiz=1"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-surface px-6 py-3.5 text-base font-bold text-surface-foreground ring-1 ring-border transition-colors hover:bg-accent hover:text-accent-foreground active:scale-95"
-            >
-              <Brain className="h-5 w-5" aria-hidden="true" />
-              Test yourself
             </Link>
           </div>
           <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-muted-foreground">
@@ -173,9 +159,9 @@ const features = [
     body: "Slang moves fast. We track what's trending so you're never a month behind the group chat.",
   },
   {
-    icon: Brain,
-    title: "Test what you learned",
-    body: "Take the quick meme quiz to see how fluent you really are and get a personalized feed.",
+    icon: Search,
+    title: "Search any term",
+    body: "Heard something new? Look it up instantly and get the meaning, origin, and how it's used.",
   },
 ]
 
