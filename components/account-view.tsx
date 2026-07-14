@@ -45,20 +45,12 @@ function formatViewedAt(timestamp: number): string {
 
 const plans = [
   {
-    id: "premium",
-    name: "Premium",
-    price: "$0.99",
-    priceCents: 99,
-    cadence: "per month",
-    perks: ["Unlimited saves", "Early access to trends", "Priority feed"],
-  },
-  {
     id: "adfree",
-    name: "Go AD Free",
+    name: "Unlimited & Ad Free",
     price: "$1.99",
     priceCents: 199,
-    cadence: "one time",
-    perks: ["Then all ads are gone forever", "Cleaner feed", "Faster browsing"],
+    cadence: "per month",
+    perks: ["Unlimited saves", "No ads, ever", "Cleaner, faster feed"],
     featured: true,
   },
   {
