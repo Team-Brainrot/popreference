@@ -181,8 +181,8 @@ export const hotMemes: Meme[] = [
   },
   {
     id: "aura",
-    term: "Aura Points",
-    meaning: "Imaginary score for how cool or impressive your actions are.",
+    term: "Aura Farming",
+    meaning: "Unecessarily acting outlandish to make yourself seem cooler.",
     image: "/memes/kym-aura.jpg",
     creator: "knowyourmeme",
     bookmarks: 13977,
@@ -212,7 +212,7 @@ export const hotMemes: Meme[] = [
     id: "ishowspeed",
     term: "IShowSpeed",
     meaning:
-      "Explosive streamer famous for over-the-top reactions, screaming, and viral livestream moments.",
+      "Explosive streamer famous for over-the-top reactions, screaming/barking, and viral livestream moments.",
     image: "/memes/kym-ishowspeed.jpg",
     creator: "knowyourmeme",
     bookmarks: 29880,
@@ -222,7 +222,7 @@ export const hotMemes: Meme[] = [
     id: "john-pork",
     term: "John Pork",
     meaning:
-      "A surreal pig-headed man in a suit who 'calls' you — an absurdist edit that became a running gag.",
+      "A surreal pig-headed man in a suit who 'calls' you - an absurdist edit that became a running gag.",
     image: "/memes/kym-john-pork.jpg",
     creator: "knowyourmeme",
     bookmarks: 15720,
@@ -242,7 +242,7 @@ export const hotMemes: Meme[] = [
     id: "amogus",
     term: "Amogus",
     meaning:
-      "A deliberately misspelled Among Us crewmate, shorthand for calling something or someone 'sus'.",
+      "A deliberately misspelled Among Us, shorthand for calling something or someone 'sus'.",
     image: "/memes/kym-amogus.jpg",
     creator: "knowyourmeme",
     bookmarks: 42110,
@@ -338,7 +338,7 @@ export const hotMemes: Meme[] = [
   {
     id: "freddy-fazbear",
     term: "Freddy Fazbear",
-    meaning: "The animatronic bear mascot of the Five Nights at Freddy's horror game series.",
+    meaning: "The animatronic bear mascot of the Five Nights at Freddy's horror game series. Known for going: HAR HAR har har har Har har har har harrr",
     image: "/memes/kym-freddy-fazbear.jpg",
     creator: "knowyourmeme",
     bookmarks: 21294,
@@ -493,7 +493,7 @@ export const hotMemes: Meme[] = [
   {
     id: "buckle-my-shoe",
     term: "1 2 Buckle My Shoe",
-    meaning: "A menacing nursery-rhyme edit trend counting up over ominous visuals.",
+    meaning: "A nursery-rhyme edit trend, used as a tension breaking nonsense memes.",
     image: "/memes/kym-buckle-my-shoe.jpg",
     creator: "knowyourmeme",
     bookmarks: 12931,
@@ -538,7 +538,7 @@ export const hotMemes: Meme[] = [
   {
     id: "grimace-shake",
     term: "Grimace Shake",
-    meaning: "A McDonald's purple shake turned horror-trend where people 'collapse' after drinking it.",
+    meaning: "A McDonald's purple shake turned horror-trend where people 'collapse/die' after drinking it.",
     image: "/memes/kym-grimace-shake.jpg",
     creator: "knowyourmeme",
     bookmarks: 23517,
@@ -556,7 +556,7 @@ export const hotMemes: Meme[] = [
   {
     id: "nathaniel-b",
     term: "Nathaniel B",
-    meaning: "A catchy name-chant audio ('Nathaniel B, oh Nathaniel B') used in loop edits.",
+    meaning: "A reference to an epic rap battle verse ending with 'aint you Nathaniel B?'",
     image: "/memes/kym-nathaniel-b.jpg",
     creator: "knowyourmeme",
     bookmarks: 12441,
@@ -565,7 +565,7 @@ export const hotMemes: Meme[] = [
   {
     id: "lightskin-stare",
     term: "Lightskin Stare",
-    meaning: "An intense sideways gaze meme associated with a smug half-lidded expression.",
+    meaning: "An intense sideways gaze meme associated with a smug half-lidded expression oftern being heavily assocated with rizz.",
     image: "/memes/kym-lightskin-stare.jpg",
     creator: "knowyourmeme",
     bookmarks: 19481,
