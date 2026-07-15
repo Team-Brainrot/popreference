@@ -249,6 +249,28 @@ function HowItWorks() {
   )
 }
 
+/* --------------------------------- Quote --------------------------------- */
+
+function Quote() {
+  return (
+    <section className="mx-auto w-full max-w-4xl px-5 py-12 md:py-16">
+      <figure className="rounded-3xl bg-surface px-6 py-12 text-center shadow-[var(--shadow-card)] ring-1 ring-border md:px-12">
+        <span className="mx-auto block font-serif text-6xl leading-none text-flame" aria-hidden="true">
+          &ldquo;
+        </span>
+        <blockquote className="mx-auto mt-2 max-w-2xl text-balance text-xl font-semibold leading-relaxed text-surface-foreground md:text-2xl">
+          {
+            "Kids are in such a different world, that I don't feel like I don't belong or I'm outside of it. It doesn't \u201Cspeak their language.\u201D"
+          }
+        </blockquote>
+        <figcaption className="mt-6 text-sm font-medium text-muted-foreground">
+          &mdash; A parent, before finding PopRef
+        </figcaption>
+      </figure>
+    </section>
+  )
+}
+
 /* ------------------------------- Showcase -------------------------------- */
 
 function Showcase() {
@@ -345,6 +367,7 @@ export function LandingPage() {
       <Stats />
       <Features />
       <HowItWorks />
+      <Quote />
       <Showcase />
       <FinalCta />
       <LandingFooter />
