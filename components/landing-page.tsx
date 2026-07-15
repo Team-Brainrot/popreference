@@ -264,7 +264,7 @@ function Quote() {
           }
         </blockquote>
         <figcaption className="mt-6 text-sm font-medium text-muted-foreground">
-          &mdash; A parent, before finding PopRef
+          &mdash; A parent
         </figcaption>
       </figure>
     </section>
