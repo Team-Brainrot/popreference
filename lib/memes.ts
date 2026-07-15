@@ -10,6 +10,8 @@ export type Meme = {
   fit?: "cover" | "contain"
   /** Marks adult / mature content that is hidden from new users by default. */
   nsfw?: boolean
+  /** Optional external video reference (e.g. a Know Your Meme video page). */
+  video?: string
 }
 
 export function getMemeById(id: string): Meme | undefined {
@@ -1114,6 +1116,108 @@ export const hotMemes: Meme[] = [
     bookmarks: 41280,
     tags: ["brainrot", "reaction", "music", "viral"],
     fit: "contain",
+  },
+  {
+    id: "phonk",
+    term: "Phonk",
+    meaning:
+      "A hip-hop subgenre rooted in 1990s Memphis rap. Its 'drift phonk' style, packed with cowbells and heavy bass, soundtracks countless car-drifting and edit videos online.",
+    image: "/memes/kym-phonk.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 22870,
+    tags: ["music", "brainrot", "viral"],
+  },
+  {
+    id: "80s-bad-to-the-bone",
+    term: "The 80's Were Bad to the Bone",
+    meaning:
+      "Built on George Thorogood's 1982 song 'Bad to the Bone,' the growling guitar riff is dropped over clips to make anything look impossibly cool or badass, often with an 80s aesthetic.",
+    image: "/memes/kym-80s-bad-to-the-bone.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 15230,
+    tags: ["audio", "tiktok", "brainrot"],
+  },
+  {
+    id: "minion-memes",
+    term: "Facebook Minion Memes",
+    meaning:
+      "Yellow Minion characters paired with corny motivational or sarcastic quotes. Popular with older users, they became shorthand for 'boomer humor' and low-effort Facebook content.",
+    image: "/memes/kym-minion-memes.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 18940,
+    tags: ["classic", "boomer", "reaction"],
+  },
+  {
+    id: "homer-let-the-barts-out",
+    term: "Homer Let the Barts Out",
+    meaning:
+      "A viral AI 'brainrot' song by Rabadoonga about Homer Simpson releasing a swarm of Barts who wreak havoc on Springfield. It exploded across TikTok as lip dubs, animations, and covers.",
+    image: "/memes/kym-homer-let-the-barts-out.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 33110,
+    tags: ["music", "tiktok", "brainrot", "viral"],
+    video: "https://knowyourmeme.com/memes/homer-let-the-barts-out/videos",
+  },
+  {
+    id: "thumbnail-reaction-images",
+    term: "Thumbnail Reaction Images",
+    meaning:
+      "Exaggerated shocked or surprised faces cropped from YouTube thumbnails (often the New Rockstars channel), used on X and TikTok to react dramatically to online discourse.",
+    image: "/memes/kym-thumbnail-reaction-images.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 16480,
+    tags: ["reaction", "youtube", "meme"],
+  },
+  {
+    id: "brawlhalla-rage",
+    term: "Brawlhalla Rage",
+    meaning:
+      "Clips and image macros of players raging at the platform fighter Brawlhalla, usually over signature-spam and rough matchmaking, shared as relatable gamer-frustration content.",
+    image: "/memes/kym-brawlhalla-rage.png",
+    creator: "knowyourmeme",
+    bookmarks: 9840,
+    tags: ["gaming", "rage", "reaction"],
+  },
+  {
+    id: "mario-mind-rhyme",
+    term: "Mario Mind Rhyme",
+    meaning:
+      "A 2015 song by The Stringini Bros built on rhymes that set up a rude word but swerve into an innocent one. It lives on as soundboard audio and lyric-guessing bits.",
+    image: "/memes/kym-mario-mind-rhyme.png",
+    creator: "knowyourmeme",
+    bookmarks: 8720,
+    tags: ["music", "audio", "meme"],
+  },
+  {
+    id: "fairs",
+    term: "Fairs",
+    meaning:
+      "British slang shortening of 'fair enough.' Used as a dry, low-effort way to concede a point, often paired with an OK-hand gesture for an anticlimactic shrug.",
+    image: "/memes/kym-fairs.png",
+    creator: "knowyourmeme",
+    bookmarks: 11260,
+    tags: ["slang", "british", "reaction"],
+  },
+  {
+    id: "nyan-cat",
+    term: "Nyan Cat",
+    meaning:
+      "A pixel-art cat with a Pop-Tart body flying through space leaving a rainbow trail. Created in 2011 and paired with a looping J-pop tune, it became one of the internet's first mega-memes.",
+    image: "/memes/kym-nyan-cat.png",
+    creator: "knowyourmeme",
+    bookmarks: 39980,
+    tags: ["classic", "animals", "viral"],
+    fit: "contain",
+  },
+  {
+    id: "employed",
+    term: "Employed",
+    meaning:
+      "Ironic slang treating simply having a job as a flex or personality trait, tied to 'wagie' and 'wage cage' jokes that satirize soul-crushing 9-to-5 office life.",
+    image: "/memes/kym-employed.png",
+    creator: "knowyourmeme",
+    bookmarks: 10430,
+    tags: ["slang", "ironic", "reaction"],
   },
   {
     id: "slay",
