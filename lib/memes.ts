@@ -1579,4 +1579,14 @@ export const hotMemes: Meme[] = [
     bookmarks: 29650,
     tags: ["genz", "slang", "viral"],
   },
+  {
+    id: "larp",
+    term: "LARP",
+    meaning:
+      "Short for Live-Action Role-Play, a hobby where people physically act out characters in costume. Popularized online by the 2003 'Lightning Bolt!' Ogre Battle video, it later became internet slang for calling someone performative or faking an identity or expertise.",
+    image: "/memes/kym-larp.jpg",
+    creator: "knowyourmeme",
+    bookmarks: 18740,
+    tags: ["slang", "classic", "internet"],
+  },
 ]
