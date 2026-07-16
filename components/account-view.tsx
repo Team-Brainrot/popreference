@@ -54,6 +54,14 @@ const plans = [
     featured: true,
   },
   {
+    id: "scholar",
+    name: "Scholar",
+    price: "$4.99",
+    priceCents: 499,
+    cadence: "per month",
+    perks: ["Learn how to use any meme you're viewing in a single sentence"],
+  },
+  {
     id: "colors",
     name: "Custom Colors",
     price: "$0.50",
